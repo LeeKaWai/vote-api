@@ -1,0 +1,12 @@
+import {Schema as MongooseSchema, SchemaTypes} from 'mongoose';
+
+export const CollectionName = '{{properCase name}}s';
+export const Schema = new MongooseSchema(
+  {
+   
+  },
+  {
+    collection: CollectionName,
+    timestamps: true
+  }
+);

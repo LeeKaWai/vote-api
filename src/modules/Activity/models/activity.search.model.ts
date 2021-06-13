@@ -1,9 +1,14 @@
-import {
-  IsString,
-  IsBoolean,
-  IsNotEmpty,
-  IsOptional,
-  ValidateNested
-} from 'class-validator';
+import { IsOptional, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class ActivitySearchModel {}
+export class ActivitySearchModel {
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  page?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  limit?: number;
+}

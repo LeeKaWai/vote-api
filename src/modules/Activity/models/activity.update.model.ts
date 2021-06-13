@@ -1,9 +1,11 @@
-import {
-  IsString,
-  IsBoolean,
-  IsNotEmpty,
-  IsOptional,
-  ValidateNested
-} from 'class-validator';
+import { IsString, IsEnum, IsOptional } from 'class-validator';
+import { ActivityStatus } from '../../../core/enum';
+export class ActivityUpdateModel {
+  @IsString()
+  @IsOptional()
+  name?: string;
 
-export class ActivityUpdateModel {}
+  @IsEnum(ActivityStatus)
+  @IsOptional()
+  status: ActivityStatus;
+}

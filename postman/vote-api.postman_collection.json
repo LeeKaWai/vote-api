@@ -1,0 +1,417 @@
+{
+	"info": {
+		"_postman_id": "1f226171-34d3-488b-a2c0-fb08fd566543",
+		"name": "vote-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "创建管理员",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"ljw515200@hotmail.com\",\n    \"password\":\"abc123\",\n    \"confirmPassword\":\"abc123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Activity",
+			"item": [
+				{
+					"name": "查询所有活动",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8800/activitys",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"activitys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建活动(管理员)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxqdzUxNTJAaG90bWFpbC5jb20iLCJzdWIiOiI2MGM0NDdhNzBhNDkxMGM2ZGQwN2E3MzEiLCJ1c2VyVHlwZSI6ImFkbWluIiwiaWF0IjoxNjIzNTE1MDM0fQ.G_Jm4DoEoo7zCnRhoIrRBW4TDTkIDBkEDcZz2gbJHfA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"选举demo1\",\n    \"candidates\":[\n        {\"name\":\"古天乐\"},\n        {\"name\":\"林峰\"}\n    ],\n    \"startTime\":\"2021-06-14 10:40:00\",\n    \"endTime\":\"2021-06-20 09:00:00\",\n    \"status\":-1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/activitys/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"activitys",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "进行投票 (会员)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxqdzY3ODlAaG90bWFpbC5jb20iLCJzdWIiOiI2MGM0YzNjZDVlY2I5Zjg1NmJjMjEwZjAiLCJ1c2VyVHlwZSI6Im1lbWJlciIsImlhdCI6MTYyMzUwNzkzMn0.xeJ4S9rTgCAOgrsE_GpF0QapkOlfoZiBizTVKksZz_g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"activityId\":\"60c4af88b8762635faeded60\",\n    \"candidateId\":\"60c4af88b8762635faeded62\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/activitys/vote",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"activitys",
+								"vote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更改活动状态",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxqdzUxNTJAaG90bWFpbC5jb20iLCJzdWIiOiI2MGM0NDdhNzBhNDkxMGM2ZGQwN2E3MzEiLCJ1c2VyVHlwZSI6ImFkbWluIiwiaWF0IjoxNjIzNTE1MDM0fQ.G_Jm4DoEoo7zCnRhoIrRBW4TDTkIDBkEDcZz2gbJHfA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/activitys/update/60c4e2157f5774e7b80e3e22/status",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"activitys",
+								"update",
+								"60c4e2157f5774e7b80e3e22",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加候选人到活动中(管理员)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxqdzUxNTJAaG90bWFpbC5jb20iLCJzdWIiOiI2MGM0NDdhNzBhNDkxMGM2ZGQwN2E3MzEiLCJ1c2VyVHlwZSI6ImFkbWluIiwiaWF0IjoxNjIzNTE1MDM0fQ.G_Jm4DoEoo7zCnRhoIrRBW4TDTkIDBkEDcZz2gbJHfA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"names\":[\n        {\"name\":\"刘德华\"},\n        {\"name\":\"任达华\"}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/activitys/add/60c4e2157f5774e7b80e3e22/candidates",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"activitys",
+								"add",
+								"60c4e2157f5774e7b80e3e22",
+								"candidates"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "管理员登录",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjM0MjI5NTIsImV4cCI6MTYyMzQyMzAxMn0.04yvsXLwqXGt8PuZ4e6028rx33qeU4pLxesisc4T8I8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"ljw5152@hotmail.com\",\n    \"password\":\"abc123\",\n    \"userType\":\"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "会员登录 (demo1)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"demo1@hotmail.com\",\n    \"password\":\"Abc123..\",\n    \"userType\":\"member\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "会员登录 (demo2)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"demo2@hotmail.com\",\n    \"password\":\"Abc123..\",\n    \"userType\":\"member\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "会员登录(demo3)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"demo3@hotmail.com\",\n    \"password\":\"Abc123..\",\n    \"userType\":\"member\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Member",
+			"item": [
+				{
+					"name": "创建新会员",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"demo11@hotmail.com\",\n    \"idCard\":\"A534670(7)\",\n    \"password\":\"Abc123..\",\n    \"confirmPassword\":\"Abc123..\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8800/members",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"members"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vote-Log",
+			"item": [
+				{
+					"name": "查询 某个候选人得票情况（管理员）",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8800/vote-logs?activityId=60c4e2157f5774e7b80e3e22&candidateId=60c4e2157f5774e7b80e3e23",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"vote-logs"
+							],
+							"query": [
+								{
+									"key": "paginate",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "activityId",
+									"value": "60c4e2157f5774e7b80e3e22"
+								},
+								{
+									"key": "candidateId",
+									"value": "60c4e2157f5774e7b80e3e23"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

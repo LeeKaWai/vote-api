@@ -6,10 +6,10 @@ module.exports = {
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
     'prettier',
     'prettier/@typescript-eslint',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   root: true,
   env: {
@@ -17,8 +17,20 @@ module.exports = {
     jest: true,
   },
   rules: {
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
+    'max-len': ['error', 130],
+    'linebreak-style': ['error', 'unix'],
+    'no-return-await': 'error',
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
+    'no-unused-vars': 'off',
+    eqeqeq: ['error', 'always'],
   },
 };

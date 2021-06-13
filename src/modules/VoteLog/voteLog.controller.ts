@@ -1,40 +1,17 @@
-import {
-  Get,
-  Put,
-  Body,
-  Post,
-  Patch,
-  Param,
-  Query,
-  Delete,
-  Controller,
-  UseFilters
-} from '@nestjs/common';
+import { Get, Param, Query, Controller } from '@nestjs/common';
 // services
 import { VoteLogService } from './voteLog.service';
 
 // models
-import {
-VoteLogCreateModel,
-VoteLogUpdateModel,
-VoteLogSearchModel
-} from './models';
+import { VoteLogSearchModel } from './models';
 
+import { RequireLogin, UserTypes } from '../../core/decorators';
+import { UserType } from '../../core/enum';
+@RequireLogin()
+@UserTypes(UserType.ADMIN)
 @Controller('vote-logs')
 export class VoteLogController {
-  constructor(private readonly voteLogService: VoteLogService) {
-  }
-
-  @Post()
-  public async create(@Body() body: VoteLogCreateModel) {
-    return this.voteLogService.create(body);
-  }
-
-  @Put(':_id')
-  public async update(@Param() param,@Body() body: VoteLogUpdateModel
-  ) {
-    return this.voteLogService.update(param._id, body);
-  }
+  constructor(private readonly voteLogService: VoteLogService) {}
 
   @Get()
   public async find(@Query() query: VoteLogSearchModel) {
@@ -42,13 +19,8 @@ export class VoteLogController {
   }
 
   @Get(':_id')
-  public async findById(@Param() param, @Query() query?) {
+  public async findById(@Param() param) {
     const result = await this.voteLogService.findById(param._id);
     return result;
-  }
-
-  @Delete(':_id')
-  public async delete(@Param() param) {
-    return this.voteLogService.delete(param._id);
   }
 }

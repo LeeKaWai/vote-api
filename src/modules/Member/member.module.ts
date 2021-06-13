@@ -1,10 +1,9 @@
-import {Module} from '@nestjs/common';
-import {MongooseModule} from '@nestjs/mongoose';
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
 import { Schema, CollectionName } from './schemas/member.schemas';
 import { MemberController } from './member.controller';
 import { MemberService } from './member.service';
-
 
 @Module({
   imports: [
@@ -12,6 +11,6 @@ import { MemberService } from './member.service';
   ],
   controllers: [MemberController],
   providers: [MemberService],
-  exports: [MemberService]
+  exports: [MemberService],
 })
 export class MemberModule {}

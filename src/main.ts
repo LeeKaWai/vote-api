@@ -5,16 +5,28 @@ require('dotenv').config({
 });
 
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
+
+import { NestExpressApplication } from '@nestjs/platform-express';
+
 import { AppModule } from './app.module';
-import packageJson from '../package.json';
+// import packageJson from '../package.json';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
   app.enableCors();
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
+
   await app.listen(process.env.PORT);
   console.info(
     '%s run in [ %s ] environment successfully at port %s',
-    packageJson.name,
+    // packageJson.name,
+    'vote-api',
     process.env.NODE_ENV || 'development',
     process.env.PORT,
   );

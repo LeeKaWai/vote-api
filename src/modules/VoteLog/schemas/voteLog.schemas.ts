@@ -1,5 +1,4 @@
 import { Schema as MongooseSchema, SchemaTypes } from 'mongoose';
-
 export const CollectionName = 'VoteLogs';
 export const Schema = new MongooseSchema(
   {

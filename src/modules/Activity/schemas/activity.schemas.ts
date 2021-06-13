@@ -1,5 +1,5 @@
 import { Schema as MongooseSchema, SchemaTypes } from 'mongoose';
-
+import { ActivityStatus } from '../../../core/enum';
 // 选举活动表
 export const CollectionName = 'Activitys';
 export const Schema = new MongooseSchema(
@@ -16,8 +16,12 @@ export const Schema = new MongooseSchema(
     startTime: { type: SchemaTypes.Date, required: true },
     // 活动结束时间，默认活动结束时间不能早于开始时间,最少为1分钟
     endTime: { type: SchemaTypes.Date, required: true },
-    // 活动状态 默认关闭
-    status: { type: SchemaTypes.Boolean, default: false },
+    // 活动状态
+    status: {
+      required: true,
+      type: SchemaTypes.Number,
+      enum: Object.values(ActivityStatus),
+    },
   },
   {
     collection: CollectionName,

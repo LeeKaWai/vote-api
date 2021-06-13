@@ -14,6 +14,7 @@ import {
 import { IActivity } from './interfaces';
 
 import { VoteLogService } from '../VoteLog/voteLog.service';
+import { MailService } from '../Mail/mail.service';
 
 import { CurrentUser } from '../../core/decorators';
 import { ActivityStatus } from '../../core/enum';
@@ -25,6 +26,7 @@ export class ActivityService {
     @InjectModel('Activitys')
     private readonly activityRepository: Model<IActivity>,
     private readonly voteLogService: VoteLogService,
+    private readonly mailservice: MailService,
   ) {}
 
   public _castQuery(searchModel: ActivitySearchModel) {
@@ -101,15 +103,44 @@ export class ActivityService {
    * @returns
    */
   public async updateStatus(_id: string, status: ActivityStatus) {
-    return this.activityRepository.findByIdAndUpdate(
-      _id,
-      {
-        $set: {
-          status: status,
+    try {
+      const activity = await this.activityRepository.findByIdAndUpdate(
+        _id,
+        {
+          $set: {
+            status: status,
+          },
         },
-      },
-      { new: true },
-    );
+        { new: true },
+      );
+      // 如果活动状态更新成功为结束，则推送邮件给对应的会员
+      if (activity.status === ActivityStatus.ENDED) {
+        const voteLog = await this.getVoting(_id);
+        for (const c of voteLog.candidates) {
+          const members: any = await this.voteLogService.find({
+            activityId: activity._id.toString(),
+            candidateId: c.candidateId.toString(),
+            isPagination: false,
+          });
+          const emails = members.map(m => m.memberId.email);
+          const context = {
+            candidateName: c.candidateName,
+            votes: c.votes,
+            percent: c.percent,
+            totalVotes: voteLog.totalVotes,
+          };
+          await this.mailservice.sendVotingResultToMember(emails, context);
+        }
+      }
+    } catch (err) {
+      throw new HttpException(
+        {
+          stauts: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: '发生了些错误',
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   /**
@@ -166,7 +197,6 @@ export class ActivityService {
     const activity = await this.activityRepository
       .findOne({
         _id: activityId,
-        status: ActivityStatus.PROCESSING,
       })
       .lean();
 

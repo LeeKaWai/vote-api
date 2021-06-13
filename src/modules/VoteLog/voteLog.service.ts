@@ -23,7 +23,12 @@ export class VoteLogService {
 
   public _castQuery(searchModel: VoteLogSearchModel) {
     const query: any = {};
-    const {} = searchModel;
+    if (searchModel.candidateId) {
+      query.candidateId = searchModel.candidateId;
+    }
+    if (searchModel.activityId) {
+      query.activityId = searchModel.activityId;
+    }
     return query;
   }
 
@@ -33,23 +38,32 @@ export class VoteLogService {
 
   public async find(searchQuery: VoteLogSearchModel) {
     const query = this._castQuery(searchQuery);
-    const results = await this.voteLogRepository
-      .find(query)
-      .populate({
-        path: 'memberId',
-      })
-      .skip(((searchQuery.page || 1) - 1) * (searchQuery.limit || 10))
-      .limit(searchQuery.limit || 10)
-      .exec();
+    if (searchQuery.isPagination) {
+      const results = await this.voteLogRepository
+        .find(query)
+        .populate({
+          path: 'memberId',
+        })
+        .skip(((searchQuery.page || 1) - 1) * (searchQuery.limit || 10))
+        .limit(searchQuery.limit || 10)
+        .exec();
 
-    const total = await this.voteLogRepository.find(query).count();
-    return {
-      docs: results,
-      limit: searchQuery.limit || 10,
-      currentPage: searchQuery.page || 1,
-      totalPages: Math.ceil(total / (searchQuery.limit || 10)),
-      totalDocs: total,
-    };
+      const total = await this.voteLogRepository.find(query).count();
+      return {
+        docs: results,
+        limit: searchQuery.limit || 10,
+        currentPage: searchQuery.page || 1,
+        totalPages: Math.ceil(total / (searchQuery.limit || 10)),
+        totalDocs: total,
+      };
+    } else {
+      return this.voteLogRepository
+        .find(query)
+        .populate({
+          path: 'memberId',
+        })
+        .lean();
+    }
   }
 
   public async findById(id) {

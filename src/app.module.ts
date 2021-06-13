@@ -11,6 +11,7 @@ import { CacheModule } from './modules/Cache/cache.module';
 import { MemberModule } from './modules/Member/member.module';
 import { VoteLogModule } from './modules/VoteLog/voteLog.module';
 import { UserModule } from './modules/User/user.module';
+import { MailModule } from './modules/Mail/mail.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
@@ -26,6 +27,7 @@ import { UserModule } from './modules/User/user.module';
     MemberModule,
     UserModule,
     VoteLogModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [

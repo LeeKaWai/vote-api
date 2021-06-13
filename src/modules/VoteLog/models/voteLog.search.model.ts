@@ -1,4 +1,4 @@
-import { IsOptional, IsNumber, IsMongoId } from 'class-validator';
+import { IsOptional, IsNumber, IsMongoId, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 export class VoteLogSearchModel {
   @IsOptional()
@@ -9,7 +9,8 @@ export class VoteLogSearchModel {
   activityId: string;
 
   @IsMongoId()
-  candidateId: string;
+  @IsOptional()
+  candidateId?: string;
 
   @IsOptional()
   @Type(() => Number)
@@ -20,4 +21,8 @@ export class VoteLogSearchModel {
   @Type(() => Number)
   @IsNumber()
   limit?: number;
+
+  @IsOptional()
+  @IsBoolean()
+  isPagination?: boolean;
 }

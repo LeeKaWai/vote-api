@@ -15,16 +15,16 @@ $ yarn install
 在 config/env 中可以自行设定 mongodb、redis的链接参数
 ```
 ```bash
-DATABASE=vote-api         // database name 
-JWT_SECRET=               // JWT srcret
-MONGODB_HOST=		           // mongodb uri
-MONGODB_PORT=		    	      // mongodb port
-MONGODB_USERNAME=  			    // mongodb account
-MONGODB_PASSWORD=				     // mongodb password
-PORT=8800						           // api port
-REDIS_PROT=				          	// redis port
-REDIS_HOST=			            // redis uri
-REDIS_PASSWORD=			        // redis password
+DATABASE=vote-api        
+JWT_SECRET=            
+MONGODB_HOST=		           
+MONGODB_PORT=		    	      
+MONGODB_USERNAME=  			    
+MONGODB_PASSWORD=				     
+PORT=8800						          
+REDIS_PROT=				          	
+REDIS_HOST=			           
+REDIS_PASSWORD=			       
 ```
 ```bash
 关于访问鉴权 角色控制 

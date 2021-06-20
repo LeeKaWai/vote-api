@@ -1,9 +1,7 @@
-import { Controller, Get, Request, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
+import { ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
+
 import { AuthService } from './auth.service';
-
-import { RequireLogin, UserTypes } from '../../core/decorators/auth';
-
-import { UserType } from '../../core/enum';
 
 import { LoginModel } from './model/auth.login.model';
 
@@ -12,14 +10,9 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/login')
+  @ApiCreatedResponse({ description: '登录' })
+  @ApiBody({ type: LoginModel })
   async login(@Body() body: LoginModel) {
     return this.authService.login(body);
-  }
-
-  @RequireLogin()
-  @UserTypes(UserType.MEMBER)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
   }
 }

@@ -1,7 +1,10 @@
 
 ## 关于项目
-
-本项目是采用 [Nest](https://github.com/nestjs/nest) 进行开发
+本项目是之前一个公司给予的面试题，一个简易的投票服务系统。
+### 技术栈:
+  - [NestJS](https://github.com/nestjs/nest) 
+  - MongoDB
+  - Redis
 
 ## 安装依赖
 
@@ -11,9 +14,8 @@ $ yarn install
 
 ## 关于设定
 
-```bash
-在 config/env 中可以自行设定 mongodb、redis的链接参数
-```
+
+#### 在 config/env 中可以自行设定 Mongodb、Redis的链接参数
 ```bash
 DATABASE=vote-api        
 JWT_SECRET=            
@@ -26,8 +28,10 @@ REDIS_PROT=
 REDIS_HOST=			           
 REDIS_PASSWORD=			       
 ```
-```bash
-关于访问鉴权 角色控制 
+
+
+### 关于访问鉴权 角色控制 
+``` bash
 import { RequireLogin, UserTypes, CurrentUser } from '../../core/decorators';
 import { UserType } from '../../core/enum';
 
